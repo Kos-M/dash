@@ -17,7 +17,7 @@ export default function Navbar(props) {
               className="text-white text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
               to="/"
             >
-              Notus React
+              PreDPosition
             </Link>
             <button
               className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
@@ -34,7 +34,7 @@ export default function Navbar(props) {
             }
             id="example-navbar-warning"
           >
-            <ul className="flex flex-col lg:flex-row list-none mr-auto">
+            {/* <ul className="flex flex-col lg:flex-row list-none mr-auto">
               <li className="flex items-center">
                 <a
                   className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
@@ -44,8 +44,8 @@ export default function Navbar(props) {
                   Docs
                 </a>
               </li>
-            </ul>
-            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+            </ul> */}
+            {/* <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               <li className="flex items-center">
                 <PagesDropdown />
               </li>
@@ -90,7 +90,7 @@ export default function Navbar(props) {
                   <i className="fas fa-arrow-alt-circle-down"></i> Download
                 </button>
               </li>
-            </ul>
+            </ul> */}
           </div>
         </div>
       </nav>
