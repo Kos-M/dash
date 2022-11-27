@@ -1,43 +1,41 @@
-import React ,  { useEffect, useState,  }from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
- 
- 
 import Cookies from "universal-cookie";
-import Api from '../../utils/Api'
+import Api from "../../utils/Api";
 const cookies = new Cookies();
 
 export default function Login(props) {
   const [IsLoading, setIsLoading] = useState(false);
 
-  
   useEffect(() => {
-    let token = cookies.get("auth_token")
-    if ( token ){
+    let token = cookies.get("auth_token");
+    if (token) {
       window.location.href = "/admin/dashboard";
     }
-  }, [])
-  function login(e){
-    e.preventDefault()
-    setIsLoading(true)
-    Api.post('/users/login',{
-        username: e.target.username.value,
-        password: e.target.password.value,
-        // "remeber_password": e.target.remeber_password.checked
-    } ).then((result) => {
-      if ( result.data.status === 200 && result.data.msg === "Login Succeed") {
-        console.log(result);
-        cookies.set("auth_token", result.data.token, {
-          path: "/",
-          sameSite: true ,
-        });
-        setIsLoading(false)
-        window.location.href = props?.location?.state?.from?.pathname;
-      }
-
+  }, []);
+  function login(e) {
+    e.preventDefault();
+    setIsLoading(true);
+    Api.post("/users/login", {
+      username: e.target.username.value,
+      password: e.target.password.value,
+      // "remeber_password": e.target.remeber_password.checked
     })
-    .catch((error) => {console.log(error);})
-  
+      .then((result) => {
+        if (result.data.status === 200 && result.data.msg === "Login Succeed") {
+          console.log(result);
+          cookies.set("auth_token", result.data.token, {
+            path: "/",
+            sameSite: true,
+          });
+          setIsLoading(false);
+          window.location.href = props?.location?.state?.from?.pathname;
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   return (
@@ -46,43 +44,8 @@ export default function Login(props) {
         <div className="flex content-center items-center justify-center h-full">
           <div className="w-full lg:w-4/12 px-4">
             <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
-              <div className="rounded-t mb-0 px-6 py-6">
-                <div className="text-center mb-3">
-                  <h6 className="text-blueGray-500 text-sm font-bold">
-                    Sign in with
-                  </h6>
-                </div>
-                <div className="btn-wrapper text-center">
-                  <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-2 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img
-                      alt="..."
-                      className="w-5 mr-1"
-                      src={require("assets/img/github.svg").default}
-                    />
-                    Github
-                  </button>
-                  <button
-                    className="bg-white active:bg-blueGray-50 text-blueGray-700 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    <img
-                      alt="..."
-                      className="w-5 mr-1"
-                      src={require("assets/img/google.svg").default}
-                    />
-                    Google
-                  </button>
-                </div>
-                <hr className="mt-6 border-b-1 border-blueGray-300" />
-              </div>
-              <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                <div className="text-blueGray-400 text-center mb-3 font-bold">
-                  <small>Or sign in with credentials</small>
-                </div>
-                <form  onSubmit={login}>
+              <div className="flex-auto px-4 lg:px-10 py-10 pt-2">
+                <form onSubmit={login}>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -132,8 +95,16 @@ export default function Login(props) {
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       type="submit"
                     >
-                    {  IsLoading ? 
-                    <> Sign In  <i className="fas fa-spinner fa-spin"> </i> </> : 'Sign In'  }
+                      {IsLoading ? (
+                        <>
+                          {" "}
+                          Sign In <i className="fas fa-spinner fa-spin">
+                            {" "}
+                          </i>{" "}
+                        </>
+                      ) : (
+                        "Sign In"
+                      )}
                     </button>
                   </div>
                 </form>
