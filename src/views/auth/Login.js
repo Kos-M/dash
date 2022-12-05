@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Cookies from "universal-cookie";
 import Api from "../../utils/Api";
@@ -7,7 +7,7 @@ const cookies = new Cookies();
 
 export default function Login(props) {
   const [IsLoading, setIsLoading] = useState(false);
-
+  const navigate = useNavigate();
   useEffect(() => {
     let token = cookies.get("auth_token");
     if (token) {
@@ -30,7 +30,12 @@ export default function Login(props) {
             sameSite: true,
           });
           setIsLoading(false);
-          window.location.href = props?.location?.state?.from?.pathname;
+          cookies.set("auth_token", "dummy", {
+            path: "/",
+            sameSite: true,
+          });
+
+          navigate(-2, { replace: true });
         }
       })
       .catch((error) => {
