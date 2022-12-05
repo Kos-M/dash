@@ -1,6 +1,7 @@
 import React from "react";
 
 import UserDropdown from "components/Dropdowns/UserDropdown.js";
+import Logout from "views/auth/Logout.js";
 
 export default function Navbar() {
   return (
@@ -13,9 +14,7 @@ export default function Navbar() {
             className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
             href="#pablo"
             onClick={(e) => e.preventDefault()}
-          >
-            
-          </a>
+          ></a>
           {/* Form */}
           <form className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
             <div className="relative flex w-full flex-wrap items-stretch">
@@ -30,7 +29,7 @@ export default function Navbar() {
             </div>
           </form>
           {/* User */}
-          <ul className="flex-col md:flex-row list-none items-center hidden md:flex">
+          <ul className="flex-col md:flex-row list-none items-center align-left hidden md:flex">
             <UserDropdown />
           </ul>
         </div>
