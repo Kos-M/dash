@@ -23,6 +23,7 @@ export default function Login(props) {
       // "remeber_password": e.target.remeber_password.checked
     })
       .then((result) => {
+        console.dir(result);
         if (result.data.status === 200 && result.data.msg === "Login Succeed") {
           console.log(result);
           cookies.set("auth_token", result.data.token, {
@@ -30,11 +31,6 @@ export default function Login(props) {
             sameSite: true,
           });
           setIsLoading(false);
-          cookies.set("auth_token", "dummy", {
-            path: "/",
-            sameSite: true,
-          });
-
           navigate(-2, { replace: true });
         }
       })

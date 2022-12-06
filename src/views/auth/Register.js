@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SmallModal from "../../components/Modals/SmallModal";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import Api from "../../utils/Api";
 
 export default function Register() {
   const [IsLoading, setIsLoading] = useState(false);
@@ -20,17 +21,11 @@ export default function Register() {
       return;
     }
     setIsLoading(true);
-    const configuration = {
-      method: "post",
-      url: "http://127.0.0.1:5001/users/register",
-      data: {
-        username: e.target.username.value,
-        email: e.target.email.value,
-        password: e.target.password.value,
-      },
-    };
-    // make the API call
-    axios(configuration)
+    Api.post("/users/register", {
+      username: e.target.username.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+    })
       .then((result) => {
         console.log(result.data);
         if (Object.keys(result.data).includes("ERROR")) {
@@ -124,7 +119,7 @@ export default function Register() {
 
                   <div className="text-center mt-6">
                     <button
-                      className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                      className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-80 ease-linear transition-all duration-250"
                       type="submit"
                     >
                       Create Account
@@ -133,7 +128,15 @@ export default function Register() {
                 </form>
               </div>
             </div>
+            <div className="flex flex-wrap mt-6 relative">
+              <div className="w-2/3 absolute top-0 right-0 text-right  ">
+                <Link to="/auth/login" className="text-blueGray-200 mg-6">
+                  <small>Login</small>
+                </Link>
+              </div>
+            </div>
           </div>
+
           {AccountExist ? (
             <SmallModal
               visible={AccountExist}

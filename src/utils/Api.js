@@ -1,5 +1,5 @@
 import Axios from "axios";
-
+//   "@fortawesome/fontawesome-free": "5.15.3",
 /*
  * restVerify must be enqued from admin-class side.
  */
@@ -15,10 +15,26 @@ import Axios from "axios";
 const mockAnswers = [
   {
     path: "/users/login",
-    data: {
-      response: {
+    response: {
+      data: {
         status: 200,
         msg: "Login Succeed",
+        token: "dummy",
+      },
+    },
+    error: {
+      data: {
+        status: 401,
+        msg: "",
+      },
+    },
+  },
+  {
+    path: "/users/register",
+    response: {
+      data: {
+        status: 401,
+        ERROR: "Email is already in use!",
       },
     },
   },
@@ -36,11 +52,13 @@ const mockPost = (url, data) => {
     const ans = mockAnswers.filter(
       (mockResponses) => mockResponses.path === url
     );
-    if (ans) {
+    if (ans.length > 0) {
+      console.dir(ans);
       console.log(url);
       console.log(data);
       resolve(ans[0].response);
     }
+    resolve(mockAnswers[0].error);
   });
 };
 

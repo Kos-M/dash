@@ -17,8 +17,6 @@ import Maps from "views/admin/Maps.js";
 import Settings from "views/admin/Settings.js";
 import Tables from "views/admin/Tables.js";
 
-import ProtectedRoute from "views/auth/ProtectedRoutes";
-
 export default function Admin() {
   return (
     <>
@@ -29,51 +27,12 @@ export default function Admin() {
         <HeaderStats />
         <div className="px-4 md:px-10 mx-auto w-full -m-24">
           <Routes>
-            <Route
-              path="dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="dashboardDemo"
-              exact
-              element={
-                <ProtectedRoute>
-                  <DashDemo />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="dashboardDemo" exact element={<DashDemo />} />
             <Route path="editor" exact element={<EditorPage />} />
-            <Route
-              path="maps"
-              exact
-              element={
-                <ProtectedRoute>
-                  <Maps />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="settings"
-              exact
-              element={
-                <ProtectedRoute>
-                  <Settings />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="tables"
-              exact
-              element={
-                <ProtectedRoute>
-                  <Tables />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="maps" exact element={<Maps />} />
+            <Route path="settings" exact element={<Settings />} />
+            <Route path="tables" exact element={<Tables />} />
             {/* <Navigate from="/admin" to="/admin/dashboard" /> */}
             <Route path="*" element={<Navigate to="/404" replace />} />
           </Routes>

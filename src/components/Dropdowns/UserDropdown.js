@@ -1,7 +1,9 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
 import TeamImg from "assets/img/team-1-800x800.jpg";
-
+{
+  /* <FontAwesomeIcon icon="fad fa-sign-out-alt" /> */
+}
 const UserDropdown = () => {
   // dropdown props
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
@@ -87,7 +89,7 @@ const UserDropdown = () => {
           }
           onClick={(e) => e.preventDefault()}
         >
-          Seprated link
+          Logout
         </a>
       </div>
     </>
