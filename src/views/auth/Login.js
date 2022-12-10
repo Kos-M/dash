@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import Cookies from "universal-cookie";
 import Api from "../../utils/Api";
@@ -31,7 +31,8 @@ export default function Login(props) {
             sameSite: true,
           });
           setIsLoading(false);
-          navigate(-2, { replace: true });
+          // navigate(-2, { replace: true }); // 2 steps back ?
+          navigate("/admin/dashboard");
         }
       })
       .catch((error) => {
