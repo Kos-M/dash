@@ -1,7 +1,9 @@
-FROM node:16.4.2-buster-slim  as deps-intermediate
+FROM node:16.13.1-buster-slim  as deps-intermediate
+ENV NODE_ENV production
+USER node
 WORKDIR /app
-COPY package.json .
-RUN yarn install --production=true --ignore-optional --silent  --non-interactive
+COPY package*.json .
+RUN npm ci --only=production
 FROM node:16.4.2-buster-slim as final
 WORKDIR /app
 COPY . .    

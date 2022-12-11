@@ -1,0 +1,17 @@
+FROM node:16.13.1-buster-slim  as deps-intermediate
+WORKDIR /app
+RUN chown node:node /app
+ENV NODE_ENV development
+USER node
+COPY package*.json .
+RUN npm install
+
+FROM node:16.4.2-buster-slim as final
+RUN npm install -g nodemon
+WORKDIR /app
+RUN chown node:node /app
+USER node
+COPY --chown=node:node  . .    
+COPY --chown=node:node  --from=deps-intermediate ./app/node_modules ./node_modules
+
+CMD ["npm", "run" ,"dev"]
