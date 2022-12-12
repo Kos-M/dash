@@ -1,16 +1,16 @@
 FROM node:16.13.1-buster-slim  as deps-intermediate
 ENV NODE_ENV production
+RUN mkdir -p /app &&  chown node:node /app 
 WORKDIR /app
-RUN CHOWN node:node /app
 USER node
-COPY --chown=node:node package*.json .
-RUN npm i --only=production
+COPY package*.json ./
+RUN npm ci --production
 
 
 FROM node:16.4.2-buster-slim as builder
 WORKDIR /app
 COPY . .    
-COPY --from=deps-intermediate ./app/node_modules ./node_modules
+COPY --from=deps-intermediate /app/node_modules ./node_modules
 
 RUN npm run build
 
