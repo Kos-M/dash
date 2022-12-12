@@ -1,8 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
 set -eu pipefail
  
-source .env
+ if [ -f .env ] ; then
+    source .env
+else 
+    echo "Dash:Not Found .env file"
+fi
 
 
 if [ ! -d node_modules ] ; then
