@@ -1,8 +1,9 @@
 FROM node:16.13.1-buster-slim  as deps-intermediate
 ENV NODE_ENV production
-USER node
 WORKDIR /app
-COPY package*.json .
+RUN CHOWN node:node /app
+USER node
+COPY --chown=node:node package*.json .
 RUN npm i --only=production
 
 
