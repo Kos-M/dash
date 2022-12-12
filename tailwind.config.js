@@ -2,7 +2,7 @@ const plugin = require("tailwindcss/plugin");
 const colors = require("tailwindcss/colors");
 
 module.exports = {
-  purge: {
+  content: {
     enabled: true,
     content: [
       "./public/**/*.html",
@@ -21,6 +21,7 @@ module.exports = {
   theme: {
     colors: {
       ...colors,
+      secondary: 'red'
     },
     extend: {
       minHeight: {
@@ -81,22 +82,9 @@ module.exports = {
       },
     },
   },
-  variants: [
-    "responsive",
-    "group-hover",
-    "focus-within",
-    "first",
-    "last",
-    "odd",
-    "even",
-    "hover",
-    "focus",
-    "active",
-    "visited",
-    "disabled",
-  ],
   plugins: [
     require("@tailwindcss/forms"),
+    require("daisyui"),
     plugin(function ({ addComponents, theme }) {
       const screens = theme("screens", {});
       addComponents([
@@ -141,4 +129,15 @@ module.exports = {
       ]);
     }),
   ],
+  // daisyUI config (optional)
+  daisyui: {
+    styled: true,
+    themes: true,
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+    prefix: "",
+    darkTheme: "dark",
+  },
 };

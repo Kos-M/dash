@@ -1100,12 +1100,12 @@ select {
   background-color: rgba(236, 72, 153, var(--tw-bg-opacity));
 }
 
-.bg-purple-200 {
+.bg-violet-200 {
   --tw-bg-opacity: 1;
   background-color: rgba(233, 213, 255, var(--tw-bg-opacity));
 }
 
-.bg-purple-500 {
+.bg-violet-500 {
   --tw-bg-opacity: 1;
   background-color: rgba(168, 85, 247, var(--tw-bg-opacity));
 }
@@ -1175,7 +1175,7 @@ select {
   background-color: rgba(16, 185, 129, var(--tw-bg-opacity));
 }
 
-.bg-yellow-500 {
+.bg-amber-500 {
   --tw-bg-opacity: 1;
   background-color: rgba(234, 179, 8, var(--tw-bg-opacity));
 }
