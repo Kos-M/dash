@@ -53,6 +53,7 @@ const mockPost = (url, data) => {
 };
 
 let Api
+
 if ( process.env.NODE_ENV === 'production'){
   Api = Axios.create({
     baseURL: '/api',
@@ -62,14 +63,22 @@ if ( process.env.NODE_ENV === 'production'){
     }
   });
 }else if (  process.env.NODE_ENV === 'development'){
-  Api = {
-    get: mockGet,
-    post: mockPost,
-    default: {
-      get: mockGet,
-      post: mockPost,
-    },
-  };
+
+  Api = Axios.create({
+    baseURL: 'http://127.0.0.1:5001/',
+    headers: {
+        'content-type': 'application/json',
+        'Cache-Control': 'no-cache'
+    }
+  });
+  // Api = {
+  //   get: mockGet,
+  //   post: mockPost,
+  //   default: {
+  //     get: mockGet,
+  //     post: mockPost,
+  //   },
+  // };
   
 }
 

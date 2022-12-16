@@ -38,7 +38,7 @@ export default function Register() {
         window.location = "/auth/login";
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error?.message);
       });
   }
 
