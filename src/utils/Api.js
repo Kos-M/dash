@@ -1,16 +1,6 @@
 import Axios from "axios";
-//   "@fortawesome/fontawesome-free": "5.15.3",
-/*
- * restVerify must be enqued from admin-class side.
- */
-// const Api = Axios.create({
-//     // baseURL: 'https://api',
-//     baseURL: 'http://127.0.0.1:5001/',
-//     headers: {
-//         'content-type': 'application/json',
-//         'Cache-Control': 'no-cache'
-//     }
-// });
+
+
 
 const mockAnswers = [
   {
@@ -62,13 +52,25 @@ const mockPost = (url, data) => {
   });
 };
 
-const Api = {
-  get: mockGet,
-  post: mockPost,
-  default: {
+let Api
+if ( process.env.NODE_ENV === 'production'){
+  Api = Axios.create({
+    baseURL: '/api',
+    headers: {
+        'content-type': 'application/json',
+        'Cache-Control': 'no-cache'
+    }
+  });
+}else if (  process.env.NODE_ENV === 'development'){
+  Api = {
     get: mockGet,
     post: mockPost,
-  },
-};
+    default: {
+      get: mockGet,
+      post: mockPost,
+    },
+  };
+  
+}
 
 export default Api;
