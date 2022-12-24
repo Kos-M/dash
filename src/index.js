@@ -1,6 +1,7 @@
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import ScrollToTop from './ScrollToTop';
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "assets/styles/tailwind.css";
@@ -23,6 +24,8 @@ const root = createRoot(document.getElementById("root"));
 root.render(
   <StrictMode>
     <BrowserRouter>
+   
+      <ScrollToTop/>
       <Routes>
         <Route path="/landing" exact element={<Landing />} />
         {/* add routes with layouts */}
