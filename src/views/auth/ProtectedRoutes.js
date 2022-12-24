@@ -1,21 +1,33 @@
-import React from "react";
+import {useState, useEffect, React}  from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import Cookies from "universal-cookie";
-const cookies = new Cookies();
-
-function useAuth() {
-  const token = cookies.get("auth_token");
-  if (token) {
-    return true;
-  } else {
-    return false;
-  }
-}
+import Api from '../../utils/Api'
 
 const PrivateRoutes = () => {
-  const loggedIN = useAuth();
-  console.dir(loggedIN);
-  return loggedIN ? <Outlet /> : <Navigate to="/auth/login" />;
+  const [auth, setAuth] = useState(false);
+  const [isTokenValidated, setIsTokenValidated] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("auth_token");
+    if (token) {
+      Api.post('/protected', {
+        token
+      }).then((res) => {
+        if (res.data.status === 'valid') {
+          setAuth(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+        setAuth(false);
+        localStorage.removeItem("auth_token");
+      })
+      .then(() => setIsTokenValidated(true));
+    }else {
+      setIsTokenValidated(true); // in case there is no token
+   }
+  }, [])
+  if (!isTokenValidated) return <div>Loading</div>; // TODO add a spinner component here
+  return auth ? <Outlet /> : <Navigate to="/auth/login" />;
 };
 
 export default PrivateRoutes;

@@ -9,7 +9,8 @@ export default function Login(props) {
   const [IsLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    let token = cookies.get("auth_token");
+    let token = localStorage.getItem("auth_token");
+    
     if (token) {
       window.location.href = "/admin/dashboard";
     }
@@ -25,14 +26,9 @@ export default function Login(props) {
       .then((result) => {
         console.dir(result);
         if (result.data.status === 200 && result.data.msg === "Login Succeed") {
-          console.log(result);
-          cookies.set("auth_token", result.data.token, {
-            path: "/",
-            sameSite: true,
-          });
+          localStorage.setItem("auth_token", result.data.token);
           setIsLoading(false);
-          // navigate(-2, { replace: true }); // 2 steps back ?
-          navigate("/admin/dashboard");
+          navigate("/admin/dashboard");// navigate(-2, { replace: true }); // 2 steps back ?
         }
       })
       .catch((error) => {
